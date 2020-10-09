@@ -50,7 +50,7 @@ d3.json('/static/js/samples.json').then((sample) => {
                 .selectAll('li')
                 .data(Object.entries(cardData[0]))
                 .join('li')
-                .text(d => d)
+                .text(d => d[0] + ': ' + d[1])
 
 
         }
@@ -63,6 +63,7 @@ d3.json('/static/js/samples.json').then((sample) => {
         function updatePlotly() {
             let id = dropdown.node().value
             let newId = graph_data.filter(d => d.id === id)
+            let cardId = cardData.filter(d => d.id.toString() === id)
 
             // H-Bar update
             let x = [], y = []
@@ -79,7 +80,16 @@ d3.json('/static/js/samples.json').then((sample) => {
 
             Plotly.restyle('bubble-plot', 'x', [x])
             Plotly.restyle('bubble-plot', 'y', [y])
+
+            // Card update
+            card = d3.select('#card-body')
+                .selectAll('li')
+                .data(Object.entries(cardId[0]))
+                .join('li')
+                .text(d => d[0] + ': ' + d[1])
             }
+
+
 
     
     // CALLING INITIALIZER
