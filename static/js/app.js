@@ -6,6 +6,7 @@ d3.json('/static/js/samples.json').then((sample) => {
         var dropdown = d3.select('#dropdown-container')
             .append('select')
             .classed('form-control form-control-lg', true)
+            .attr('id', 'dropdown')
 
         // Appending select options
         var selections = dropdown.selectAll('option')
@@ -36,7 +37,7 @@ d3.json('/static/js/samples.json').then((sample) => {
 
             // Bubble plot data declaration
             let bubbleData = [{
-                x: graphData[0].otu_ids.map(d => `OTU ${d}`),
+                x: graphData[0].otu_ids.map(d => d),
                 y: graphData[0].sample_values,
                 marker: {
                     size: graphData[0].sample_values,
@@ -48,7 +49,7 @@ d3.json('/static/js/samples.json').then((sample) => {
             }]
 
             let bubbleLayout = {
-                height: 800,
+                height: 600,
             }
             
             // Initial plots
@@ -88,7 +89,7 @@ d3.json('/static/js/samples.json').then((sample) => {
             Plotly.restyle('plot', 'y', [y])
 
             // Bubble chart update
-            x = chartId[0].otu_ids.map(d => `OTU ${d}`)
+            x = chartId[0].otu_ids.map(d => d)
             y = chartId[0].sample_values
             let markerSize = chartId[0].sample_values
             let markerColor = chartId[0].otu_ids
