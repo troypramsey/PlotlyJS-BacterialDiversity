@@ -28,16 +28,15 @@ d3.json('/static/js/samples.json').then((sample) => {
         // Isolating data to build H-Bar chart    
         
         dropdown.on('change', updatePlotly)
+
         function updatePlotly() {
             let id = dropdown.node().value
             let x = [], y = []
-            
-            function findID(x) {
-                let filter = graph_data.id === x
-                return filter
-            }
-            x = graph_data.otu_ids.filter(findID(id))
-            y = graph_data.sample_values.filter(findID(id))
+
+            newId = graph_data.filter(d => d.id === id)
+            x = newId[0].sample_values.sort((a, b) => (b - a)).slice(0, 10).reverse()
+            y = newId[0].otu_ids.map(d => `OTU ${d}`)
+
             Plotly.restyle('plot', 'x', [x])
             Plotly.restyle('plot', 'y', [y])
             }
