@@ -17,9 +17,12 @@ d3.json('/static/js/samples.json').then((sample) => {
         // INITIAL PAGE LOAD
         // Get value from select input
         var graph_data = sample.samples
+        var cardData = sample.metadata
 
         // Defining INIT() function
         function init() {
+            
+            // Bar graph data declaration
             let data = [{
                 x: graph_data[0].sample_values.sort((a, b) => (b - a)).slice(0, 10).reverse(),
                 y: graph_data[0].otu_ids.map(d => `OTU ${d}`),
@@ -28,6 +31,7 @@ d3.json('/static/js/samples.json').then((sample) => {
                 orientation: 'h'
             }]
 
+            // Bubble plot data declaration
             let bubbleData = [{
                 x: graph_data[0].otu_ids.map(d => `OTU ${d}`),
                 y: graph_data[0].sample_values,
@@ -36,9 +40,19 @@ d3.json('/static/js/samples.json').then((sample) => {
                 },
                 mode: 'markers'
             }]
-
+            
+            // Initial plots
             Plotly.newPlot('plot', data)
             Plotly.newPlot('bubble-plot', bubbleData)
+
+            // Initial card
+            let card = d3.select('#card-body')
+                .selectAll('li')
+                .data(Object.entries(cardData[0]))
+                .join('li')
+                .text(d => d)
+
+
         }
 
         // HORIZONTAL BAR CHART   
