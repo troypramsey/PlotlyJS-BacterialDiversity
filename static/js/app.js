@@ -42,7 +42,7 @@ d3.json('./static/js/samples.json').then((sample) => {
                 marker: {
                     size: graphData[0].sample_values,
                     color: graphData[0].otu_ids,
-                    sizeref: 1.5
+                    sizeref: 1.25
                 },
                 mode: 'markers',
                 text: graphData[0].otu_labels
