@@ -1,5 +1,5 @@
 // READING IN JSON DATA
-d3.json('/static/js/samples.json').then((sample) => {
+d3.json('static/js/samples.json').then((sample) => {
 
         // BUILDING DROPDOWN USING D3
         // Appending select object
